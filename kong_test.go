@@ -24,6 +24,8 @@ func TestCreate(t *testing.T) {
 	pretty.Println("create")
 	jwtauth, _, err := client.ConsumerService.Create("210389","tes@sofianhw.com")
 	pretty.Println(jwtauth)
+	jwtauths, _, err := client.ConsumerService.CreateJWTCredential("tes@sofianhw.com")
+	pretty.Println(jwtauths)
 	// pretty.Println(resp)
 	pretty.Println(err)
 	// pretty.Println(resp)

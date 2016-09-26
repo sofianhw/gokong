@@ -81,6 +81,16 @@ func (s *ConsumerService) Create(customID, userName string) (*Consumer, *http.Re
 	return consumers, resp, err
 }
 
+func (s *ConsumerService) CreateJWTCredential(userName string) (*JWTAuth, *http.Response, error) {
+	type Options struct {
+		algorithm  string `url:"algorithm"`
+	}
+	opt := Options{"HS256"}
+	jwtAuth := new(JWTAuth)
+	resp, err := s.sling.New().Post("/consumers/"+userName+"/jwt").BodyForm(opt).ReceiveSuccess(jwtAuth)
+	return jwtAuth, resp, err
+}
+
 func (s *ConsumerService) BasicAuth(cons, username, password string) (*Consumer, *http.Response, error) {
 	creds := new(Credentials)
 	creds.Username = username
@@ -90,3 +100,4 @@ func (s *ConsumerService) BasicAuth(cons, username, password string) (*Consumer,
 	resp, err := s.sling.New().Post("/consumers/").Path(path).BodyJSON(creds).ReceiveSuccess(consumer)
 	return consumer, resp, err
 }
+
