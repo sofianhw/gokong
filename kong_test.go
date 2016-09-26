@@ -10,11 +10,21 @@ import (
 // 	return NewClient(nil, "http://devapi.pinjam.co.id:8001/")
 // }
 
-func TestCreateConsumer(t *testing.T) {
-	client := NewClient(nil, "http://devapi.pinjam.co.id:8001/")
-	pretty.Println("start")
-	jwtauth, _, err := client.ConsumerService.GetJWT("/sofianhw","/jwt")
-	pretty.Println(jwtauth.Data[0].ID)
+// func TestCreateConsumer(t *testing.T) {
+// 	client := NewClient(nil, "http://devapi.pinjam.co.id:8001/")
+// 	pretty.Println("start")
+// 	jwtauth, _, err := client.ConsumerService.GetJWT("/sofianhw","/jwt")
+// 	pretty.Println(jwtauth.Data[0].ID)
+// 	pretty.Println(err)
+// 	// pretty.Println(resp)
+// }
+
+func TestCreate(t *testing.T) {
+	client := NewClient(nil, "http://devapi.pinjam.co.id:8471/")
+	pretty.Println("create")
+	jwtauth, _, err := client.ConsumerService.Create("210389","tes@sofianhw.com")
+	pretty.Println(jwtauth)
+	// pretty.Println(resp)
 	pretty.Println(err)
 	// pretty.Println(resp)
 }

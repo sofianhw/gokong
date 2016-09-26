@@ -70,12 +70,15 @@ func (s *ConsumerService) List() (*ConsumerList, *http.Response, error) {
 	return consumers, resp, err
 }
 
-func (s *ConsumerService) Create(customID, username string) (*Consumer, *http.Response, error) {
-	consumer := new(Consumer)
-	consumer.CustomID = customID
-	consumer.Username = username
-	resp, err := s.sling.New().Post("/consumers/").BodyJSON(consumer).ReceiveSuccess(consumer)
-	return consumer, resp, err
+func (s *ConsumerService) Create(customID, userName string) (*Consumer, *http.Response, error) {
+	type Options struct {
+		CustomID  string `url:"custom_id"`
+		Username  string `url:"username"`
+	}
+	opt := Options{ customID, userName }
+	consumers := new(Consumer)
+	resp, err := s.sling.New().Post("/consumers/").BodyForm(opt).ReceiveSuccess(consumers)
+	return consumers, resp, err
 }
 
 func (s *ConsumerService) BasicAuth(cons, username, password string) (*Consumer, *http.Response, error) {
